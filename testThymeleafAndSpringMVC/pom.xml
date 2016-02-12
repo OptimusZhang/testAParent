@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.springstudy</groupId>
+	<artifactId>testThymeleafAndSpringMVC</artifactId>
+	<packaging>war</packaging>
+	<name>testThymeleafAndSpringMVC Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>springloaded</artifactId>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<finalName>zjw</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>install</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.springframework</groupId>
+									<artifactId>springloaded</artifactId>
+									<version>${springloaded.version}</version>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${basedir}/local-lib</outputDirectory>
+									<destFileName>springloaded-${springloaded.version}.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<parent>
+		<groupId>com.zjw</groupId>
+		<artifactId>testAParent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+</project>
