@@ -1,0 +1,19 @@
+PrepareStatement对比Statement的优势
+  优势1：代码可读性好/易于维护
+  优势2：PrepareStatement是预编译语句对象，执行性能更好
+  		     什么是预编译：
+  		          查询id为11的商品时
+  		            Statement：
+  		               1：将SQL:Selet * from product where id = 11;发送至数据库
+  		               2：安全性检查
+  		               3：语法分析
+  		               4：语法编译，编译成机器识别的二进制
+  		               5：选择并执行一个计划
+  		               注意：在有的数据库服务器中，会把每次执行的SQL给缓存下来。若下次的SQL已经在缓存则直接执行第4步。
+  		                        Selet * from product where id = 11和Selet * from product where id = 22会被判定为不同的SQL，
+  		                        导致缓存利用率低下。而PrepareStatement形式发送的Selet * from product where id = ？会被
+  		                        认为是相同的SQL，会利用缓存。
+  		                        注意：MYSQL不支持缓存。
+优势3：安全性更高，防止SQL注入问题
+           什么是SQL注入
+  		            
