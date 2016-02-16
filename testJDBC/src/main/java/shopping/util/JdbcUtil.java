@@ -74,4 +74,26 @@ public enum JdbcUtil {
 			}
 		}
 	}
+	
+	/**
+	 * 事务提交
+	 */
+	public void commit(Connection conn) {
+		try {
+			conn.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 		
+	}
+	
+	/**
+	 * 事务回滚
+	 */
+	public void rollback(Connection conn) {
+		try {
+			conn.rollback();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

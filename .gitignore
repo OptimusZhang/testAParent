@@ -2,3 +2,6 @@ testJDBC/target/
 testThymeleafAndSpringMVC/target/
 testThymeleafAndSpringMVC/bin/
 target/
+.classpath
+.settings/
+testJDBC/bin/
