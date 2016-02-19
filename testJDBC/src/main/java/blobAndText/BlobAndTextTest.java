@@ -1,5 +1,7 @@
 package blobAndText;
 
+import static org.junit.Assert.*;
+
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -54,4 +56,11 @@ public class BlobAndTextTest {
 		}
 		JdbcUtil.INSTANCE.close(conn, pStatement, null);
 	}	
+	
+	@Test
+	public void testName() throws Exception {
+		String a = "abc_P.jsp";
+		a.replaceAll("_P", "");
+		System.out.println(a);
+	}
 }

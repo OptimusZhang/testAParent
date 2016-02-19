@@ -2,31 +2,35 @@ package shopping.util;
 
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
 
-// jdbc util class
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp2.BasicDataSourceFactory;
+
+// dbcp util class
 // singletone
 
-public enum JdbcUtil {
+public enum DBCPUtil {
 
 	INSTANCE;
-	private static Properties prop = new Properties();
+	private static DataSource dataSource;
 
 	static {
+		Properties prop = new Properties();
 		// 当前类被加载进JVM是，就会执行驱动的加载。而且只加载一次。
 		try {
-			// 加载db.properties
-			// 从classpath的根路径去加载db.properties.
+			// 加载dbcp.properties
+			// 去classpath的根路径去找dbcp.properties.
 			InputStream inStream = Thread.currentThread()
 					.getContextClassLoader()
-					.getResourceAsStream("db.properties");
+					.getResourceAsStream("dbcp.properties");
 			prop.load(inStream);
-
-			// 加载JDBC驱动
-			Class.forName(prop.getProperty("dirverClassName"));
+			// 把装有连接信息的propety对象传给工厂类。
+			// BasicDataSourceFactory里会执行配置文件注入，将属性的key值生成setKey形式来初始化连接池对象。
+			dataSource = BasicDataSourceFactory.createDataSource(prop);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -38,8 +42,7 @@ public enum JdbcUtil {
 	public Connection getConn() {
 
 		try {
-			return DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("userName"),
-					prop.getProperty("password"));
+			return dataSource.getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
